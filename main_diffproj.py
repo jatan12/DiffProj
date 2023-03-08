@@ -28,13 +28,13 @@ maxiter_proj = args.maxiter
 
 if not two_lane_bool: 
     lane_count = 4
-    model_dir = '/home/imsrobotics/Documents/IROS 2023/Weights/cvae_qp_maxiter_20_aug_weight_1.pth'
+    model_dir = './weights/cvae_four_lane_maxiter_20.pth'
     Wandb, BN = get_params(four_lane=True, dir=model_dir) # Trained Model Parameters
-    inp_mean, inp_std = -0.1904783993959427, 37.758968353271484 # -1.5896661, 38.1705 # Normalization Constants -0.1904783993959427, 37.758968353271484 Ying Yang
+    inp_mean, inp_std = -0.1904783993959427, 37.758968353271484 # Normalization Constants
 else: 
     lane_count = 2
     assert 1.0 <= env_density <= 2.5
-    model_dir = '/home/imsrobotics/Documents/IROS 2023/Weights/cvae_two_lane_maxiter_20.pth'
+    model_dir = './weights/cvae_two_lane_maxiter_20.pth'
     Wandb, BN = get_params(four_lane=False, dir=model_dir) # Trained Model Parameters
     inp_mean, inp_std = 11.051580429077148, 28.638547897338867 # Normalization Constants
 
@@ -48,7 +48,7 @@ expert = ExpertPolicy(Wandb, BN, inp_mean, inp_std, maxiter_proj, use_nn=True)
 env_name = 'highway-v0'
 
 # Obstacle Velocity
-params = [15] # 15  
+params = [15] 
 
 density_dict = {params[0] : env_density}
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
             env = RecordVideo(env, video_folder=f"./videos/expert_density_{env_density}/",
                           episode_trigger=lambda e: True)
             env.unwrapped.set_record_video_wrapper(env)
-        env.seed(seed) # Use 42 or 123 (challenging)
+        env.seed(seed) 
         obs = env.reset()
         cnt = 0
         while cnt < num_episodes:
@@ -103,5 +103,5 @@ if __name__ == "__main__":
         collision_rate = collisions / num_episodes       
         print('Average Collision Rate: ' + str(collision_rate))
         print(f"Average Speed: {np.average(avg_speed)}")
-        np.savez(f'./results/test_{seed}_density_3_size_{maxiter_proj}.npz', collisions=np.array([collision_rate]), avg_speeds=np.array(avg_speed))
+        np.savez(f'./results/diffproj_{seed}_{env_density}_maxiter_{maxiter_proj}.npz', collisions=np.array([collision_rate]), avg_speeds=np.array(avg_speed))
     print('Elapsed: ' + str(time.time() - start))
