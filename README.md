@@ -19,7 +19,7 @@ conda create -n diffproj python=3.8
 conda activate diffproj
 pip install -r requirements.txt
 ```
-3. Download [CVAE Initialization Models](https://owncloud.ut.ee/owncloud/s/YgdSoGHgX7maSPc) to the weights directory. 
+3. Download [Trained Models](https://owncloud.ut.ee/owncloud/s/YgdSoGHgX7maSPc) to the weights directory. 
 
 ## Reproducing our main experimental results
 
