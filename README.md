@@ -1,6 +1,6 @@
 # End-to-End Learning of Behavioural Inputs for Autonomous Driving in Dense Traffic
 
-This repository contains the source code to reproduce the experiments in our IROS 2023 submission.
+This repository contains the source code to reproduce the experiments in our [IROS 2023 submission](https://youtu.be/Vr9p_rWRPuM).
 
 ![Repo Overview](https://user-images.githubusercontent.com/38403732/223746011-2228a674-08fc-43cf-999a-5abf9c044135.png)
 
