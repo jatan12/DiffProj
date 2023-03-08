@@ -4,7 +4,7 @@ from scipy.special import binom
 # Reproducibility
 torch.manual_seed(42)
 torch.cuda.manual_seed(42)
-torch.set_default_dtype(torch.float64)
+torch.set_default_dtype(torch.float32)
 
 def bernstein_coeff_order10_new(n, tmin, tmax, t_actual):
     
