@@ -27,6 +27,26 @@ pip install -r requirements.txt
 
 ### Ours
 
+##### Four Lane
 ```
-python main_bilevel.py --density $(select) --four_lane $(True / False for two lane)
+python main_diffproj.py --density $(select) --render True
+```
+
+##### Two Lane
+```
+python main_diffproj.py --density $(select) --two_lane True --render True
+```
+
+### Baselines
+
+To run a baseline (batch, grid, mppi):
+
+##### Four Lane
+```
+python main_baseline.py --baseline $(select) --density $(select) --render True
+```
+
+##### Two Lane
+```
+python main_baseline.py --baseline $(select) --density $(select) --two_lane True --render True
 ```
