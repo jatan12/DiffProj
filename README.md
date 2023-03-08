@@ -50,3 +50,9 @@ Two Lane
 ```
 python main_baseline.py --baseline ${select} --density ${select} --two_lane True --render True
 ```
+
+## Training the Behavioral Input Distribution Model
+
+1. Download the [training dataset](https://owncloud.ut.ee/owncloud/s/YgdSoGHgX7maSPc) and extract the files to the dataset directory. 
+
+2. The training example is shown in the [Jupyter Notebook]() and can also be viewed using [Notebook Viewer]().
