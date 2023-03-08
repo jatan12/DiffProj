@@ -27,12 +27,12 @@ pip install -r requirements.txt
 
 ### Ours
 
-##### Four Lane
+Four Lane
 ```
 python main_diffproj.py --density $(select) --render True
 ```
 
-##### Two Lane
+Two Lane
 ```
 python main_diffproj.py --density $(select) --two_lane True --render True
 ```
@@ -41,12 +41,12 @@ python main_diffproj.py --density $(select) --two_lane True --render True
 
 To run a baseline (batch, grid, mppi):
 
-##### Four Lane
+Four Lane
 ```
 python main_baseline.py --baseline $(select) --density $(select) --render True
 ```
 
-##### Two Lane
+Two Lane
 ```
 python main_baseline.py --baseline $(select) --density $(select) --two_lane True --render True
 ```
