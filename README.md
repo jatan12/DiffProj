@@ -55,4 +55,4 @@ python main_baseline.py --baseline ${select} --density ${select} --two_lane True
 
 1. Download the [training dataset](https://owncloud.ut.ee/owncloud/s/YgdSoGHgX7maSPc) and extract the files to the dataset directory. 
 
-2. The training example is shown in the [Jupyter Notebook]() and can also be viewed using [Notebook Viewer]().
+2. The training example is shown in the [Jupyter Notebook](https://github.com/jatan12/DiffProj/blob/main/Behavioral%20Input%20Distribution%20Training.ipynb) and can also be viewed using [Notebook Viewer](https://nbviewer.org/github/jatan12/DiffProj/blob/main/Behavioral%20Input%20Distribution%20Training.ipynb).
