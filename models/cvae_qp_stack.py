@@ -44,15 +44,15 @@ class Encoder(nn.Module):
 		
 		# Mean and Variance
 		self.mu = nn.Linear(256, z_dim)
-		self.var = nn.Linear(256, z_dim)
+		self.std = nn.Linear(256, z_dim)
 		
 		self.softplus = nn.Softplus()
 		
 	def forward(self, x):
 		out = self.encoder(x)
 		mu = self.mu(out)
-		var = self.var(out)
-		return mu, self.softplus(var)
+		std = self.std(out)
+		return mu, self.softplus(std)
 	
 # Decoder
 class Decoder(nn.Module):
@@ -532,7 +532,7 @@ class Beta_cVAE(nn.Module):
 		# Normalize input
 		inp_norm = (inp - self.inp_mean) / self.inp_std
 		
-		# Mu & Variance
+		# Mu & Std
 		mean, std = self._encoder(inp_norm, traj_gt)
 				
 		# Sample from z -> Reparameterized 
