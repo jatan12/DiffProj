@@ -1,8 +1,8 @@
 # End-to-End Learning of Behavioural Inputs for Autonomous Driving in Dense Traffic
 
-This repository contains the source code to reproduce the experiments in our [IROS 2023 submission](https://youtu.be/Vr9p_rWRPuM).
+This repository contains the source code to reproduce the experiments in our [IROS 2023 paper](https://youtu.be/Vr9p_rWRPuM).
 
-![Repo Overview](https://user-images.githubusercontent.com/38403732/223746011-2228a674-08fc-43cf-999a-5abf9c044135.png)
+![IROS2023 Overview_page-0001](https://github.com/jatan12/MPC-Bi-Level/assets/38403732/b3ba073c-8064-4819-9baa-543830ac813b)
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ pip install -r requirements.txt
 
 ## Reproducing our main experimental results
 
-![IROS Benchmark](https://user-images.githubusercontent.com/38403732/223748323-672a7999-c74e-4192-8401-075ad0b9b94e.png)
+![IROS Benchmark_page-0001](https://github.com/jatan12/MPC-Bi-Level/assets/38403732/8151ecff-bb62-4692-80a6-855b019df67d)
 
 ### Ours
 
@@ -52,6 +52,8 @@ python main_baseline.py --baseline ${select} --density ${select} --two_lane True
 ```
 
 ## Training the Behavioral Input Distribution Model
+
+![IROS2023 Pipeline_page-0001](https://github.com/jatan12/MPC-Bi-Level/assets/38403732/adf32e92-c89e-4b34-ac49-ed3a9241babd)
 
 1. Download the [training dataset](https://owncloud.ut.ee/owncloud/s/YgdSoGHgX7maSPc) and extract the files to the dataset directory. 
 
