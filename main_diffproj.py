@@ -6,7 +6,7 @@ import highway_env
 from utils.env_config import env_kwargs
 from gym.wrappers import RecordVideo
 from extract_param_cvae import get_params
-from expert_mpc.policy_bilevel import ExpertPolicy
+from expert_mpc.policy_cvae import ExpertPolicy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--episodes", type=int, default=50, help="select number of episodes")
