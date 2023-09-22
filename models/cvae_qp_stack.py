@@ -413,7 +413,7 @@ class Beta_cVAE(nn.Module):
 	
 		return alpha_obs, d_obs, alpha_a, d_a, lamda_x, lamda_y, alpha_v, d_v, s_lane, res_norm_batch, vel_pen
 
-	def qp_layer_2(self, initial_state_ego, primal_sol, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y): 
+	def qp_layer_2(self, initial_state_ego, primal_sol_1, primal_sol_2, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y): 
      
 		# Boundary conditions
 		b_eq_x, b_eq_y = self.compute_boundary(initial_state_ego) 
@@ -425,7 +425,7 @@ class Beta_cVAE(nn.Module):
 		y_ub = y_ub[:, None]
 		y_lb = y_lb[:, None]
   
-		alpha_obs, d_obs, alpha_a, d_a, lamda_x, lamda_y, alpha_v, d_v, s_lane, res_norm_batch, vel_pen = self.compute_alph_d(primal_sol, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y)
+		alpha_obs, d_obs, alpha_a, d_a, lamda_x, lamda_y, alpha_v, d_v, s_lane, res_norm_batch, vel_pen = self.compute_alph_d(primal_sol_2, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y)
 		
 		b_lane = torch.hstack([y_ub * torch.ones((self.num_batch, self.num), device=device), -y_lb * torch.ones((self.num_batch, self.num), device=device)])
 		b_lane_aug = b_lane - s_lane
@@ -434,8 +434,8 @@ class Beta_cVAE(nn.Module):
 		b_vx_ineq = d_v * torch.cos(alpha_v)
 		b_vy_ineq = d_v * torch.sin(alpha_v)
   
-		c_x_bar = primal_sol[:,0:self.nvar]
-		c_y_bar = primal_sol[:, self.nvar:]
+		c_x_bar = primal_sol_1[:,0:self.nvar]
+		c_y_bar = primal_sol_1[:, self.nvar:]
 
 		temp_x_obs = d_obs * torch.cos(alpha_obs) * self.a_obs
 		b_obs_x = x_obs_traj + temp_x_obs
@@ -490,15 +490,16 @@ class Beta_cVAE(nn.Module):
 		lamda_y = y[:, 19:]
 		
 		# Call Optimization Solver First Layer
-		primal_sol = self.qp_layer_1(init_state_ego, b)
+		primal_sol_1 = self.qp_layer_1(init_state_ego, b)
+		primal_sol_2 = primal_sol_1  # initial primal_sol_2
   		
 		res_norm_batch = 0
 		# In a loop-fashion comment the lines above
 		for _ in range(self.maxiter):	
-			primal_sol, lamda_x, lamda_y, res_norm_batch, vel_pen = self.qp_layer_2(init_state_ego, primal_sol, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y)
+			primal_sol_2, lamda_x, lamda_y, res_norm_batch, vel_pen = self.qp_layer_2(init_state_ego, primal_sol_1, primal_sol_2, x_obs_traj, y_obs_traj, y_ub, y_lb, lamda_x, lamda_y)
 			res_norm_batch += res_norm_batch
 
-		return primal_sol, self.weight_aug * res_norm_batch +  self.vel_scale * vel_pen # y_star (10**(-6))
+		return primal_sol_2, self.weight_aug * res_norm_batch +  self.vel_scale * vel_pen # y_star (10**(-6))
 
 	def cvae_loss(self, traj_sol, traj_gt, res_norm_batch, mean, std, beta = 1.0, step = 0 ):
 
